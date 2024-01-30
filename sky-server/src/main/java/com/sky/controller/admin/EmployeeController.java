@@ -91,8 +91,27 @@ public class EmployeeController {
         log.info("employee page query :{}", employeePageQueryDTO);
         PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
         return Result.success(pageResult);
+    }
 
+    @PostMapping("/status/{status}")
+    @ApiOperation("start or stop employee account")
+    public Result startOrStop(@PathVariable Integer status, long id){
+        employeeService.startOrStop(status, id);
+        return Result.success();
+    }
 
+    @GetMapping("{id}")
+    @ApiOperation("get employee by id")
+    public Result<Employee> getById(@PathVariable long id){
+        Employee employee = employeeService.getById(id);
+        return Result.success(employee);
+    }
+
+    @PutMapping()
+    @ApiOperation("update employee info ")
+    public Result update (@RequestBody EmployeeDTO employeeDTO){
+        employeeService.update(employeeDTO);
+        return Result.success();
     }
 
 }
